@@ -1,0 +1,4 @@
+-- connect as sys
+
+create or replace synonym KORREKSJON_APP.KORR_TILSTANDER for KORREKSJON.KORR_TILSTANDER;
+create or replace synonym KORREKSJON_APP.KORREKSJON for KORREKSJON.KORREKSJON;

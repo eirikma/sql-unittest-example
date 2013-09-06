@@ -1,0 +1,2 @@
+This migration is performed on data sources beyond our control (preprod and prod).
+All kinds of data/schema modifications must be done in a migration not yet performed!

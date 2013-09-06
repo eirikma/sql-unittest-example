@@ -1,0 +1,23 @@
+Prodsetting ny release av KORREKSJON
+=====================================
+
+1. Stopp applikasjonen
+
+2. Oppdater database ved å kjøre disse sql-script i angitt sekvens:
+        schema.sql
+    OBS! Scriptene har norske tegn og er kodet i UTF-8. Sett derfor LOCALE eller tilsvarende miljøvariabler
+    slik at SQLPLus (og evt. andre databaseverktøy) bruker UTF-8 enkoding når den leser disse filene.
+    Kjør export NLS_LANG="_.UTF8" før SQLPLUS starter (på Linux). Sett den evt tilbake til original verdi etterpå.
+
+3. Installer ny release av applikasjonen.
+
+4. Start den nye applikasjonen.
+
+5. Verifiser at den nye applikasjonen kjører og fungerer ved å se på Nets-Online.
+
+
+Rollback
+ =====================================
+ 1. Stopp applikasjonen
+ 2. Bytt til forrige versjon av applikasjonen
+ 3. Start applikasjonen

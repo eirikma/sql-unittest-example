@@ -1,0 +1,35 @@
+Prodsetting ny release av KORREKSJON
+=====================================
+
+1. Stopp applikasjonen
+
+2. Oppdater database ved å kjøre disse sql-script i angitt sekvens:
+        schema.sql
+        data.sql
+        ../../schema/external/bkad/migrations/migration-bkad-014.sql (gi select-tilgang på view, lage synonym)
+        ../../schema/external/blankett/create-blankett-korreksjon.sql (opprette bruker, gi select-tilgang på tabell, lage synonym)
+
+    OBS! Scriptene har norske tegn og er kodet i UTF-8. Sett derfor LOCALE eller tilsvarende miljøvariabler
+    slik at SQLPLus (og evt. andre databaseverktøy) bruker UTF-8 enkoding når den leser disse filene.
+    Kjør export NLS_LANG="_.UTF8" før SQLPLUS starter (på Linux). Sett den evt tilbake til original verdi etterpå.
+
+3. Verifiser at databasetilgangene er dekkende:
+ A) Bruker blankett_korreksjon må ha select-tilgang på 'BUTIKKAVTALE' (database: p1bla_dg)
+ B) Bruker bkad_korreksjon må ha select-tilgang på 'TBABANK_BANK' (database: p1bkad_dg)
+
+4. Installer ny release av applikasjonen.
+
+5. Start den nye applikasjonen.
+
+6. Verifiser at den nye applikasjonen kjører og fungerer ved å se på Nets-Online.
+
+
+Rollback
+ =====================================
+ 1. Stopp applikasjonen
+ 2. Kjør følgende SQL (reverterer endring)
+  update PERSISTENT_PROPERTY
+    set KEY='http://vm-papp-3-ops:30692/bestilling/korreksjon/ubehandlede'
+    where KEY ='http://vm-papp-3-ops:30692';
+ 3. Bytt til forrige versjon av applikasjonen
+ 4. Start applikasjonen
