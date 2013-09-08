@@ -1,0 +1,65 @@
+Her er planen: 
+
+Prodsetting ny release av KORREKSJON 
+=====================================
+
+
+1. Stopp applikasjon
+
+
+2. Konverter database ved å kjøre disse sql-script i angitt sekvens:
+        schema.sql
+        data.sql
+        data-prod.sql
+        synonyms.sql
+        grants.sql
+
+    OBS! Scriptene har norske tegn og er kodet i UTF-8. Sett derfor LOCALE eller tilsvarende miljøvariabler
+    slik at SQLPLus (og evt. andre databaseverktøy) bruker UTF-8 enkoding når den leser disse filene.
+    Kjør export NLS_LANG="_.UTF8" før SQLPLUS starter (på Linux). Sett den evt tilbake til original verdi etterpå.
+
+    Disse scriptene gjør følgende:
+        a-            Bytte navn på tabellen "KORREKSJON" til "KORREKSJON_BACKUP_VERSJON_10"
+
+        b-            Verifiser at tabellen har byttet navn. Hvis ikke, avsluttes all oppdatering her.
+
+        c-            Opprett nye tabeller "KORREKSJON" og "KORR_TILSTANDER".
+
+        d-            Kopier dataene fra tabell "KORREKSJON_BACKUP_VERSJON_10" til "KORREKSJON" og "KORR_TILSTANDER".
+                                (verifiser at dataene i de to tabellene stemmer med det som ligger i "KORREKSJON_BACKUP_VERSJON_10")
+
+
+3. Installer ny release av applikasjonen.
+
+4. Start den nye applikasjonen.
+
+5. Verifiser at den nye applikasjonen kjører og fungerer ved å se på Nets-Online.
+
+
+DEL 2
+
+6. Kopier over sertifikat fra bruker anvisning (regner med at denne ligger i secure katalogen til anvisning)
+
+7. Alle databaseoperasjonene skal utføres med script som er testet i preprod før prodsettingen starter.
+Dette inkluderer scriptet for rollback.
+
+
+Rollback ved problemer:
+        Dersom noe feiler under prodsettingen rulles det tilbake ved å
+		1) Slette de nye tabellene DERSOM backup-tabellen er opprettet. Hvis ikke denne er opprettet er rollback ferdig.
+		2) Bytte navn på backup-tabellen til det orginale navnet
+        3) Deretter starter man opp den "gamle" versjonen av applikasjonen som evt. må reinstalleres.
+
+Følgende kommandoer utføres på databasen:
+
+	DROP TABLE KORREKSJON;
+
+	DROP TABLE KORR_TILSTANDER;
+
+	alter table
+	   KORREKSJON_BACKUP_VERSJON_10
+	rename to
+	   KORREKSJON;
+
+Deretter startes applikasjonen i original versjon.
+

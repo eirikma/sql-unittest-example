@@ -44,12 +44,10 @@ public class HsqlOraclePartitionedTablesTest {
     public void tearDown() throws Exception {
     }
 
-    @Test
-    public void testNothing() throws Exception {
-    }
+
 
     @Test
-    public void ensureOracletoHsqlSeemsToWork() throws Exception {
+    public void ensureOracleToHsqlSeemsToWork() throws Exception {
         OracleSqlFileExecutor sqlFileExecutor = new OracleSqlFileExecutor();
         sqlFileExecutor.setOracleSqlVariable("environment", "utv");
         sqlFileExecutor.setSchemaUrl(getSqlDirUrl());
@@ -64,7 +62,7 @@ public class HsqlOraclePartitionedTablesTest {
     }
 
     @Test
-    public void ensureOracletoH2databaseSeemsToWork() throws Exception {
+    public void ensureOracleToH2databaseSeemsToWork() throws Exception {
         OracleSqlFileExecutor sqlFileExecutor = new OracleSqlFileExecutor();
         sqlFileExecutor.setOracleSqlVariable("environment", "utv");
         sqlFileExecutor.setSchemaUrl(getSqlDirUrl());

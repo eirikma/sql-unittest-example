@@ -1,0 +1,12 @@
+
+@data-&&environment.sql;
+
+
+-- Add groups for core-proxy and shared-config apps
+--INSERT INTO PERSISTENT_PROPERTY_GROUP (ID, NAVN, SORTERING) VALUES (1, 'Korreksjon', 1);
+UPDATE PERSISTENT_PROPERTY set PERSISTENT_PROPERTY_GROUP = 1 where PERSISTENT_PROPERTY_GROUP is NULL;
+
+--INSERT INTO WORK_QUEUE_GROUP (ID, GROUP_NAME, SORT) VALUES (1, 'Korreksjon', 1);
+UPDATE WORK_QUEUE set WORK_QUEUE_GROUP = 1 where WORK_QUEUE_GROUP is NULL;
+
+commit;
